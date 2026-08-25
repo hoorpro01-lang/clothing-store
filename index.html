@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر الأناقة | E-Commerce Store</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">الأناقة<span>.Store</span></div>
+        <nav>
+            <button id="theme-toggle">🌙</button>
+            <div class="cart-icon" id="cart-btn">
+                🛒 <span id="cart-count">0</span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>أحدث صيحات الموضة بين يديك</h1>
+        <p>تشكيلة حصرية لعام 2026 بأسعار تنافسية</p>
+    </section>
+
+    <main class="container">
+<div class="filters">
+    <button class="filter-btn active" data-category="all">الكل</button>
+    <button class="filter-btn" data-category="men">رجالي</button>
+    <button class="filter-btn" data-category="women">حريمي</button>
+    <button class="filter-btn" data-category="kids">أطفال</button>
+</div>
+
+
+        <div class="products-grid" id="products-container">
+            <!-- المنتجات ستظهر هنا عن طريق JavaScript -->
+        </div>
+    </main>
+
+    <!-- سلة المشتريات (Modal) -->
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-content">
+            <span class="close-btn" id="close-cart">&times;</span>
+            <h2>سلة المشتريات</h2>
+            <div id="cart-items"></div>
+            <div class="cart-total">
+                <h3>الإجمالي: <span id="cart-total-price">0</span> ج.م</h3>
+            </div>
+            <button class="checkout-btn" onclick="alert('تم إرسال الطلب بنجاح!')">إتمام الشراء</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

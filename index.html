@@ -3,53 +3,658 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر الأناقة | E-Commerce Store</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Rainbow Fashion | متجر الأزياء العصرية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --rainbow-grad: linear-gradient(135deg, #ff007f, #9900ff, #00d4ff, #00ff66, #ffcc00, #ff0055);
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            background: #090a0f;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,0,127,0.15), rgba(0,212,255,0.15), transparent 60%);
+            z-index: -1;
+            animation: pulse 12s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1) rotate(0deg); }
+            100% { transform: scale(1.2) rotate(10deg); }
+        }
+
+        nav {
+            background: rgba(15, 16, 26, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 18px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 900;
+            background: var(--rainbow-grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0,212,255,0.3);
+        }
+
+        .admin-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 10px 22px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .admin-btn:hover {
+            background: var(--rainbow-grad);
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,0,127,0.4);
+        }
+
+        .container {
+            max-width: 1250px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .hero-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .hero-title h2 {
+            font-size: 42px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        .hero-title p {
+            color: #8a8fabbb;
+            font-size: 18px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-radius: 24px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 212, 255, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0,212,255,0.15);
+        }
+
+        .img-box {
+            width: 100%;
+            height: 320px;
+            border-radius: 16px;
+            overflow: hidden;
+            background: rgba(0,0,0,0.4);
+            margin-bottom: 15px;
+        }
+
+        .img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #f1f5f9;
+        }
+
+        .price-tag {
+            font-size: 22px;
+            font-weight: 800;
+            background: var(--rainbow-grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .size-selector {
+            width: 100%;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            color: #fff;
+            outline: none;
+            font-size: 14px;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        .size-selector option {
+            background: #111;
+            color: #fff;
+        }
+
+        .order-btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 14px;
+            border: none;
+            background: #25d366;
+            color: #fff;
+            font-weight: 800;
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
+            margin-bottom: 8px;
+        }
+
+        .order-btn:hover {
+            background: #20ba5a;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .delete-btn {
+            width: 100%;
+            padding: 8px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 77, 77, 0.4);
+            background: rgba(255, 77, 77, 0.1);
+            color: #ff4d4d;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background: #ff4d4d;
+            color: #fff;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 80px 20px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 24px;
+            border: 2px dashed rgba(255,255,255,0.1);
+        }
+
+        .empty-state h3 {
+            font-size: 24px;
+            color: #64748b;
+            margin-bottom: 10px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-card {
+            background: #0f111a;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 24px;
+            padding: 35px;
+            width: 90%;
+            max-width: 440px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+            position: relative;
+        }
+
+        .modal-card h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+            text-align: right;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+
+        .input-control {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .input-control:focus {
+            border-color: #00d4ff;
+        }
+
+        .file-upload-btn {
+            display: block;
+            text-align: center;
+            padding: 15px;
+            border: 2px dashed rgba(0,212,255,0.4);
+            border-radius: 12px;
+            cursor: pointer;
+            background: rgba(0,212,255,0.05);
+            color: #00d4ff;
+            font-weight: 700;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            background: var(--rainbow-grad);
+            color: #fff;
+            font-weight: 800;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn-whatsapp-confirm {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            background: #25d366;
+            color: #fff;
+            font-weight: 800;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn-close {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: none;
+            border: none;
+            color: #64748b;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .payment-badge {
+            background: rgba(0, 255, 102, 0.1);
+            border: 1px solid #00ff66;
+            color: #00ff66;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
 
-    <header class="navbar">
-        <div class="logo">الأناقة<span>.Store</span></div>
-        <nav>
-            <button id="theme-toggle">🌙</button>
-            <div class="cart-icon" id="cart-btn">
-                🛒 <span id="cart-count">0</span>
-            </div>
-        </nav>
-    </header>
+    <nav>
+        <div class="logo">RAINBOW STORE 🌈</div>
+        <button class="admin-btn" onclick="openAdminModal()">
+            <span id="adminBtnText">⚡ لوحة التاجر</span>
+        </button>
+    </nav>
 
-    <section class="hero">
-        <h1>أحدث صيحات الموضة بين يديك</h1>
-        <p>تشكيلة حصرية لعام 2026 بأسعار تنافسية</p>
-    </section>
-
-    <main class="container">
-<div class="filters">
-    <button class="filter-btn active" data-category="all">الكل</button>
-    <button class="filter-btn" data-category="men">رجالي</button>
-    <button class="filter-btn" data-category="women">حريمي</button>
-    <button class="filter-btn" data-category="kids">أطفال</button>
-</div>
-
-
-        <div class="products-grid" id="products-container">
-            <!-- المنتجات ستظهر هنا عن طريق JavaScript -->
+    <div class="container">
+        <div class="hero-title">
+            <h2>التشكيلة العصرية 🔥</h2>
+            <p>اختر ما يناسب ذوقك واطلب فوراً عبر الواتساب</p>
         </div>
-    </main>
 
-    <!-- سلة المشتريات (Modal) -->
-    <div class="cart-modal" id="cart-modal">
-        <div class="cart-content">
-            <span class="close-btn" id="close-cart">&times;</span>
-            <h2>سلة المشتريات</h2>
-            <div id="cart-items"></div>
-            <div class="cart-total">
-                <h3>الإجمالي: <span id="cart-total-price">0</span> ج.م</h3>
+        <div class="grid" id="productsGrid">
+            <div class="empty-state" id="emptyState">
+                <h3>جاري تحميل المنتجات... ⏳</h3>
             </div>
-            <button class="checkout-btn" onclick="alert('تم إرسال الطلب بنجاح!')">إتمام الشراء</button>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- نافذة دخول التاجر وإضافة المنتجات -->
+    <div class="modal" id="adminModal">
+        <div class="modal-card" id="authBox">
+            <button class="btn-close" onclick="closeAdminModal()">✕</button>
+            <h3>دخول التاجر 🔐</h3>
+            <div class="input-group">
+                <label>أدخل الرقم السري للتحكم:</label>
+                <input type="password" id="passInput" class="input-control" placeholder="••••••">
+            </div>
+            <button class="btn-submit" onclick="verifyAdmin()">تسجيل الدخول</button>
+        </div>
+
+        <div class="modal-card" id="panelBox" style="display:none;">
+            <button class="btn-close" onclick="closeAdminModal()">✕</button>
+            <h3>إضافة قطعة جديدة 👕</h3>
+            
+            <div class="input-group">
+                <label>اسم المنتج:</label>
+                <input type="text" id="pName" class="input-control" placeholder="مثال: تيشيرت أسود أوفراسيز">
+            </div>
+
+            <div class="input-group">
+                <label>السعر (بالجنيه):</label>
+                <input type="text" id="pPrice" class="input-control" placeholder="مثال: 350 جنيه">
+            </div>
+
+            <div class="input-group">
+                <label>صورة المنتج (من جهازك مباشرة):</label>
+                <label class="file-upload-btn" for="pImgFile">
+                    📷 اختار صورة من الملفات
+                </label>
+                <input type="file" id="pImgFile" accept="image/*" style="display:none;" onchange="updateFileLabel(this)">
+                <span id="fileNameDisplay" style="font-size: 12px; color: #00ff66; display: block; margin-top: 5px;"></span>
+            </div>
+
+            <button class="btn-submit" id="submitProductBtn" onclick="addNewProduct()">عرض المنتج في المتجر</button>
+        </div>
+    </div>
+
+    <!-- نافذة تفاصيل الطلب -->
+    <div class="modal" id="checkoutModal">
+        <div class="modal-card">
+            <button class="btn-close" onclick="closeCheckoutModal()">✕</button>
+            <h3>تفاصيل طلب الشحن 📦</h3>
+
+            <div class="input-group">
+                <label>الاسم بالكامل:</label>
+                <input type="text" id="customerName" class="input-control" placeholder="أدخل اسمك الكريم">
+            </div>
+
+            <div class="input-group">
+                <label>رقم التواصل (الهاتف):</label>
+                <input type="tel" id="customerPhone" class="input-control" placeholder="01xxxxxxxxx">
+            </div>
+
+            <div class="input-group">
+                <label>عنوان التوصيل بالتفصيل:</label>
+                <input type="text" id="customerAddress" class="input-control" placeholder="المحافظة - المنطقة - اسم الشارع - رقم العمارة">
+            </div>
+
+            <div class="payment-badge">
+                💵 طريقة الدفع: الدفع عند الاستلام (كاش)
+            </div>
+
+            <button class="btn-whatsapp-confirm" onclick="submitOrderToWhatsapp()">تأكيد الطلب عبر WhatsApp 💬</button>
+        </div>
+    </div>
+
+    <script>
+        const storageUrl = "https://api.jsonbin.io/v3/b/66d73507e41b4d34e4299b82";
+        const whatsappNumber = "201008209378";
+        let uploadedImageBase64 = "";
+        let currentOrderData = {};
+        let isAdminLoggedIn = false;
+        let productsList = [];
+
+        // تحميل أونلاين
+        async function loadProductsFromCloud() {
+            try {
+                const res = await fetch(storageUrl + "/latest", {
+                    headers: { "X-Master-Key": "$2a$10$89fAatq6R.B2x/1lM18L..u298KAnN2x3jCgMmsq2YdJ1C2m8GkWq" }
+                });
+                const data = await res.json();
+                productsList = data.record.products || [];
+                renderProducts();
+            } catch (err) {
+                renderProducts();
+            }
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById("productsGrid");
+            grid.innerHTML = "";
+
+            if (!productsList || productsList.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state" id="emptyState">
+                        <h3>المتجر فارغ حالياً 📦</h3>
+                        <p>اضغط على "لوحة التاجر" بأعلى الصفحة لإضافة منتجاتك وصورها مباشرة.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            productsList.forEach((p, index) => {
+                const card = document.createElement("div");
+                card.className = "card";
+                card.innerHTML = `
+                    <div class="img-box">
+                        <img src="${p.image}" alt="${p.name}">
+                    </div>
+                    <h3>${p.name}</h3>
+                    <div class="price-tag">${p.price}</div>
+                    <select class="size-selector">
+                        <option value="M">المقاس: M</option>
+                        <option value="L">المقاس: L</option>
+                        <option value="XL">المقاس: XL</option>
+                        <option value="XXL">المقاس: XXL</option>
+                    </select>
+                    <button class="order-btn" onclick="openCheckoutModal(this)">
+                        <span>شراء الآن 🛒</span>
+                    </button>
+                    ${isAdminLoggedIn ? `<button class="delete-btn" onclick="deleteProduct(${index})">🗑️ حذف المنتج</button>` : ''}
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function openAdminModal() {
+            document.getElementById("adminModal").style.display = "flex";
+            if (!isAdminLoggedIn) {
+                document.getElementById("authBox").style.display = "block";
+                document.getElementById("panelBox").style.display = "none";
+                document.getElementById("passInput").value = "";
+            } else {
+                document.getElementById("authBox").style.display = "none";
+                document.getElementById("panelBox").style.display = "block";
+            }
+        }
+
+        function closeAdminModal() {
+            document.getElementById("adminModal").style.display = "none";
+        }
+
+        function verifyAdmin() {
+            const pass = document.getElementById("passInput").value;
+            if (pass === "150150") {
+                isAdminLoggedIn = true;
+                document.getElementById("adminBtnText").innerText = "⚙️ إضافة منتج";
+                document.getElementById("authBox").style.display = "none";
+                document.getElementById("panelBox").style.display = "block";
+                renderProducts();
+            } else {
+                alert("الرقم السري غير صحيح!");
+            }
+        }
+
+        function updateFileLabel(input) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                document.getElementById("fileNameDisplay").innerText = "جاري تحضير الصورة...";
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = new Image();
+                    img.src = e.target.result;
+                    img.onload = function () {
+                        const canvas = document.createElement("canvas");
+                        const ctx = canvas.getContext("2d");
+                        const maxWidth = 450;
+                        const scaleSize = maxWidth / img.width;
+                        canvas.width = maxWidth;
+                        canvas.height = img.height * scaleSize;
+
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        uploadedImageBase64 = canvas.toDataURL("image/jpeg", 0.5);
+                        document.getElementById("fileNameDisplay").innerText = "تم اختيار الصورة بنجاح 👍";
+                    };
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // إدراج فوري للمنتج في الشاشة وحفظ في الخلفية لتجنب التعليق
+        function addNewProduct() {
+            const name = document.getElementById("pName").value;
+            const price = document.getElementById("pPrice").value;
+
+            if (!name || !price) {
+                alert("برجاء إدخال اسم المنتج والسعر!");
+                return;
+            }
+
+            if (!uploadedImageBase64) {
+                alert("برجاء اختيار صورة للمنتج من جهازك أولاً!");
+                return;
+            }
+
+            // إضافة فورية للواجهة
+            productsList.unshift({
+                name: name,
+                price: price,
+                image: uploadedImageBase64
+            });
+            renderProducts();
+
+            // إغلاق النافذة وتنظيف الخانات فوراً
+            document.getElementById("pName").value = "";
+            document.getElementById("pPrice").value = "";
+            document.getElementById("pImgFile").value = "";
+            document.getElementById("fileNameDisplay").innerText = "";
+            uploadedImageBase64 = "";
+            closeAdminModal();
+
+            // حفظ أونلاين في الخلفية
+            fetch(storageUrl, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Master-Key": "$2a$10$89fAatq6R.B2x/1lM18L..u298KAnN2x3jCgMmsq2YdJ1C2m8GkWq"
+                },
+                body: JSON.stringify({ products: productsList })
+            });
+        }
+
+        async function deleteProduct(index) {
+            if (confirm("هل أنت تأكد من رغبتك في حذف هذا المنتج؟")) {
+                productsList.splice(index, 1);
+                renderProducts();
+                await fetch(storageUrl, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-Master-Key": "$2a$10$89fAatq6R.B2x/1lM18L..u298KAnN2x3jCgMmsq2YdJ1C2m8GkWq"
+                    },
+                    body: JSON.stringify({ products: productsList })
+                });
+            }
+        }
+
+        function openCheckoutModal(btn) {
+            const card = btn.parentElement;
+            currentOrderData = {
+                title: card.querySelector("h3").innerText,
+                price: card.querySelector(".price-tag").innerText,
+                size: card.querySelector(".size-selector").value
+            };
+
+            document.getElementById("checkoutModal").style.display = "flex";
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById("checkoutModal").style.display = "none";
+        }
+
+        function submitOrderToWhatsapp() {
+            const name = document.getElementById("customerName").value;
+            const phone = document.getElementById("customerPhone").value;
+            const address = document.getElementById("customerAddress").value;
+
+            if (!name || !phone || !address) {
+                alert("برجاء ملء جميع البيانات لتأكيد الطلب!");
+                return;
+            }
+
+            const msg = `🛍️ **طلب طلبية جديدة**\n-----------------------------\n👕 **المنتج:** ${currentOrderData.title}\n💰 **السعر:** ${currentOrderData.price}\n📏 **المقاس:** ${currentOrderData.size}\n-----------------------------\n👤 **اسم العميل:** ${name}\n📞 **رقم التواصل:** ${phone}\n📍 **العنوان:** ${address}\n💵 **طريقة الدفع:** الدفع عند الاستلام`;
+
+            const encoded = encodeURIComponent(msg);
+            window.open(`https://wa.me/${whatsappNumber}?text=${encoded}`, "_blank");
+
+            closeCheckoutModal();
+        }
+
+        loadProductsFromCloud();
+    </script>
 </body>
 </html>
